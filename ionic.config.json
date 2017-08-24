@@ -1,5 +1,8 @@
 {
   "name": "moi",
-  "app_id": "",
-  "type": "ionic-angular"
+  "app_id": "2fc21c34",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

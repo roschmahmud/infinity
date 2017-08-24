@@ -1,14 +1,48 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item-sliding>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+            <ion-item *ngFor="let i of memories" text-center text-wrap>
+                {{i}}
+            </ion-item>
+            <ion-item-options side="right">
+                
+                <button ion-button color="danger" clear>
+                    <ion-icon name="md-close"></ion-icon>
+                </button>
+
+                <button ion-button color="danger" clear>
+                        <ion-icon name="md-heart"></ion-icon>
+                </button>
+
+            </ion-item-options>
+
+        </ion-item-sliding>
+
+        <ion-item text-center text-wrap>
+            {{memory}}
+        </ion-item>
+    </ion-list>
 </ion-content>
+
+<ion-footer no-border>
+    <ion-toolbar>
+        <ion-buttons left>
+            <button (click)="openCamera()" ion-button>        
+                <ion-icon name="md-camera"></ion-icon>
+            </button>
+            <button (click)="mic()" ion-button>        
+                    <ion-icon name="md-microphone"></ion-icon>
+                </button>
+        </ion-buttons>
+
+        <ion-input [(ngModel)]="memory" text-center text-warp placeholder=":)"></ion-input>
+
+        <ion-buttons end>
+            <button (click)="enter()" ion-button>
+                <ion-icon name="md-checkmark"></ion-icon>
+            </button>
+        </ion-buttons>
+        
+    </ion-toolbar>
+</ion-footer>
