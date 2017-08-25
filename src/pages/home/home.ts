@@ -29,15 +29,9 @@ export class HomePage {
 
     this.nativeStorage = nativeStorage;
     this.mediaCapture = mediaCapture;
-    
-    this.keyboard = keyboard;
-    this.keyboard.hideKeyboardAccessoryBar(true);
-    this.keyboard.disableScroll(true);
   }
 
   enter() {
-    this.keyboard.close();
-
     if (this.thought != '') {
       let i: infinities = {
         type: 0, 
@@ -63,6 +57,7 @@ export class HomePage {
   }
 
   takePic() {
+    console.log(this.mediaCapture);
     this.mediaCapture.captureImage().then(
       (data: MediaFile[]) => {
         let i: infinities = {
@@ -75,12 +70,32 @@ export class HomePage {
       (err: CaptureError) => console.log(err)
     );
   };
-  takeVid() {};
-  recordVoice() {};
-
-  showKeyboard() {
-    this.keyboard.show();
-  }
+  takeVid() {
+    this.mediaCapture.captureVideo().then(
+      (data: MediaFile[]) => {
+        let i: infinities = {
+          type: 1,
+          date: getDate(),
+          value: '<video src="' + data[0].fullPath + '">'
+        };
+        this.infinity.push(i);
+      },
+      (err: CaptureError) => console.log(err)
+    );
+  };
+  recordVoice() {
+    this.mediaCapture.captureAudio().then(
+      (data: MediaFile[]) => {
+        let i: infinities = {
+          type: 1,
+          date: getDate(),
+          value: '<img src="' + data[0].fullPath + '">'
+        };
+        this.infinity.push(i);
+      },
+      (err: CaptureError) => console.log(err)
+    );
+  };
 }
 
 interface infinities {

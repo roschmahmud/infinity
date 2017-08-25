@@ -28,7 +28,7 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     NativeStorage,
-    MediaCapture,
+    MediaCapture, 
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
