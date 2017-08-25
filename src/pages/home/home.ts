@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ActionSheetController } from 'ionic-angular'
+import { ActionSheetController } from 'ionic-angular';
+import { Device } from '@ionic-native/device';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { MediaCapture, MediaFile, CaptureError } from '@ionic-native/media-capture';
-import { Keyboard } from '@ionic-native/keyboard';
 
 
 @Component({
@@ -17,18 +17,19 @@ export class HomePage {
 
   private actionSheetCtrl: ActionSheetController;
 
-  private nativeStorage: NativeStorage;
+  private device: Device;
   private mediaCapture: MediaCapture;
-  private keyboard: Keyboard;
+  private nativeStorage: NativeStorage;
 
-  constructor(navCtrl: NavController, actionSheetCtrl: ActionSheetController, nativeStorage: NativeStorage, mediaCapture: MediaCapture, keyboard: Keyboard) {
+  constructor(navCtrl: NavController, actionSheetCtrl: ActionSheetController, nativeStorage: NativeStorage, device: Device, mediaCapture: MediaCapture,) {
     this.infinity = [];
     this.thought = '';
 
     this.actionSheetCtrl = actionSheetCtrl;
 
-    this.nativeStorage = nativeStorage;
+    this.device = device;
     this.mediaCapture = mediaCapture;
+    this.nativeStorage = nativeStorage;
   }
 
   enter() {
@@ -71,17 +72,7 @@ export class HomePage {
     );
   };
   takeVid() {
-    this.mediaCapture.captureVideo().then(
-      (data: MediaFile[]) => {
-        let i: infinities = {
-          type: 1,
-          date: getDate(),
-          value: '<video src="' + data[0].fullPath + '">'
-        };
-        this.infinity.push(i);
-      },
-      (err: CaptureError) => console.log(err)
-    );
+    MediaCapture.
   };
   recordVoice() {
     this.mediaCapture.captureAudio().then(
