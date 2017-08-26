@@ -3,7 +3,8 @@ import { NavController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { MediaCapture, MediaFile, CaptureError } from '@ionic-native/media-capture';
+import { MediaCapture } from '@ionic-native/media-capture';
+import { EyeProvider } from '../../providers/eye/eye';
 
 
 @Component({
@@ -15,21 +16,15 @@ export class HomePage {
   private thought: string;
   private infinity: infinities[];
 
-  private actionSheetCtrl: ActionSheetController;
+  constructor(private navCtrl: NavController, 
+              private actionSheetCtrl: ActionSheetController, 
+              private nativeStorage: NativeStorage, 
+              private device: Device, 
+              private mediaCapture: MediaCapture,
+              private eye: EyeProvider) {
 
-  private device: Device;
-  private mediaCapture: MediaCapture;
-  private nativeStorage: NativeStorage;
-
-  constructor(navCtrl: NavController, actionSheetCtrl: ActionSheetController, nativeStorage: NativeStorage, device: Device, mediaCapture: MediaCapture,) {
     this.infinity = [];
     this.thought = '';
-
-    this.actionSheetCtrl = actionSheetCtrl;
-
-    this.device = device;
-    this.mediaCapture = mediaCapture;
-    this.nativeStorage = nativeStorage;
   }
 
   enter() {
@@ -50,43 +45,12 @@ export class HomePage {
       enableBackdropDismiss: true,
       buttons: [
         {icon: 'md-close-circle', role: 'cancel'},
-        {icon: 'md-camera', handler: this.takePic},
-        {icon: 'md-videocam', handler: this.takeVid},
-        {icon: 'md-microphone', handler: this.recordVoice}
+        {icon: 'md-camera', handler: this.eye.takePic},
+        {icon: 'md-videocam', handler: null},
+        {icon: 'md-microphone', handler: null}
       ]
     }).present();
   }
-
-  takePic() {
-    console.log(this.mediaCapture);
-    this.mediaCapture.captureImage().then(
-      (data: MediaFile[]) => {
-        let i: infinities = {
-          type: 1,
-          date: getDate(),
-          value: '<img src="' + data[0].fullPath + '">'
-        };
-        this.infinity.push(i);
-      },
-      (err: CaptureError) => console.log(err)
-    );
-  };
-  takeVid() {
-    MediaCapture.
-  };
-  recordVoice() {
-    this.mediaCapture.captureAudio().then(
-      (data: MediaFile[]) => {
-        let i: infinities = {
-          type: 1,
-          date: getDate(),
-          value: '<img src="' + data[0].fullPath + '">'
-        };
-        this.infinity.push(i);
-      },
-      (err: CaptureError) => console.log(err)
-    );
-  };
 }
 
 interface infinities {

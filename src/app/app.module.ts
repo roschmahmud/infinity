@@ -9,6 +9,7 @@ import { MediaCapture } from '@ionic-native/media-capture';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { EyeProvider } from '../providers/eye/eye';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HomePage } from '../pages/home/home';
     Device,
     NativeStorage,
     MediaCapture, 
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    EyeProvider
   ]
 })
 export class AppModule {}
